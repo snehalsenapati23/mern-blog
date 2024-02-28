@@ -14,6 +14,9 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signInFailure,
+  signOutFailure,
+  signOutSuccess,
   updateFailure,
   updateStart,
   updateSuccess,
@@ -140,6 +143,21 @@ const DashProfile = () => {
       dispatch(deleteUserFailure(error.message));
     }
   };
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(signOutFailure(data.message));
+      } else {
+        dispatch(signOutSuccess(data));
+      }
+    } catch (error) {
+      dispatch(signOutFailure(error.message));
+    }
+  };
 
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
@@ -217,7 +235,7 @@ const DashProfile = () => {
         <span className="cursor-pointer" onClick={() => setShowModal(true)}>
           Delete Account
         </span>
-        <span className="cursor-pointer " onClick={() => setShowModal(true)}>
+        <span className="cursor-pointer " onClick={handleSignOut}>
           Sign Out
         </span>
       </div>
@@ -260,7 +278,6 @@ const DashProfile = () => {
           </div>
         </Modal.Body>
       </Modal>
-
     </div>
   );
 };

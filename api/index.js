@@ -1,8 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const { userRoutes } = require("./routes/User.route");
+const { userRoutes } = require("./routes/user.route");
 const { authRoutes } = require("./routes/auth.routes");
+const cookieParser = require("cookie-parser");
+
+
 dotenv.config();
 
 mongoose
@@ -15,7 +18,10 @@ mongoose
   });
 
 const app = express();
+
 app.use(express.json());
+app.use(cookieParser());
+
 app.listen(process.env.PORT, () => {
   console.log(`Server is running at ${process.env.PORT}`);
 });

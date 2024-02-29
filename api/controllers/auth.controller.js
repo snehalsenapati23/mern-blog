@@ -75,7 +75,7 @@ const google = async (req, res, next) => {
       const token = jwt.sign(
         {
           id: user._id,
-          isAdmin: validUser.isAdmin,
+          isAdmin: user.isAdmin,
         },
         process.env.JWT_SECRET_KEY
       );

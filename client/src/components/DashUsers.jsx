@@ -49,26 +49,22 @@ const DashUsers = () => {
   };
 
   const handleDeleteUser = async () => {
-    //       setShowModal(false);
-    //       try {
-    //         const res = await fetch(
-    //           `/api/user/deleteuser/${userIdToDelete}/${currentUser._id}`,
-    //           {
-    //             method: "DELETE",
-    //           }
-    //         );
-    //         const data = await res.json();
-    //         console.log(data);
-    //         if (!res.ok) {
-    //           console.log(data.message);
-    //         } else {
-    //           setUserPosts((prev) =>
-    //             prev.filter((post) => post._id !== postDeleteId)
-    //           );
-    //         }
-    //       } catch (error) {
-    //         console.log(error);
-    //       }
+    setShowModal(false);
+    try {
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      console.log(data);
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setShowModal(false);
+        setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -84,7 +80,7 @@ const DashUsers = () => {
               <Table.HeadCell>Admin</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
             </Table.Head>
-            {users.map((user,key) => (
+            {users.map((user, key) => (
               <Table.Body className="divide-y" key={user._id}>
                 <Table.Row className="bg-white dark:border-gray-800 dark:bg-gray-800">
                   <Table.Cell>

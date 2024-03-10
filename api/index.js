@@ -5,6 +5,7 @@ const { userRoutes } = require("./routes/user.route");
 const { authRoutes } = require("./routes/auth.routes");
 const cookieParser = require("cookie-parser");
 const { postRoutes } = require("./routes/post.routes");
+const { commentRoutes } = require("./routes/comment.routes");
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.listen(process.env.PORT, () => {
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/comment", commentRoutes);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
